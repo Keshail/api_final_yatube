@@ -7,8 +7,8 @@ from rest_framework.filters import SearchFilter
 
 from posts.models import Comment, Group, Post
 from .serializers import (
-    CommentSerializer, 
-    FollowSerializer, 
+    CommentSerializer,
+    FollowSerializer,
     GroupSerializer,
     PostSerializer
 )
@@ -33,7 +33,7 @@ class PostViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly,]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -55,7 +55,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 class FollowViewSet(generics.ListCreateAPIView):
     serializer_class = FollowSerializer
-    permission_classes = [permissions.IsAuthenticated,]
+    permission_classes = [permissions.IsAuthenticated, ]
     filter_backends = (SearchFilter, )
     search_fields = ['user__username', 'following__username']
 
