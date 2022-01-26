@@ -5,7 +5,7 @@ from rest_framework.pagination import LimitOffsetPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 
-from posts.models import Comment, Group, Post
+from posts.models import Group, Post, Comment
 from .serializers import (
     CommentSerializer,
     FollowSerializer,
@@ -37,7 +37,6 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
     permission_classes = [
@@ -47,13 +46,14 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         post = get_object_or_404(Post, pk=self.kwargs.get('post_id'))
-        return post.comments.all()
+        queryset = Comment.objects.filter(post=post)
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
 
-class FollowViewSet(generics.ListCreateAPIView):
+class FollowViewSet(viewsets.ModelViewSet):
     serializer_class = FollowSerializer
     permission_classes = [permissions.IsAuthenticated, ]
     filter_backends = (SearchFilter, )
