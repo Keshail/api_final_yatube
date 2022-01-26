@@ -1,44 +1,48 @@
-### Как запустить проект:
+# Описание
 
-Клонировать репозиторий и перейти в него в командной строке:
+Проект представляет собой API для проекта yatube.
+
+Функционал:
+Авторизация по JWT токену
+
+Сериализация данных для всех моделей проекта (Post, Comment, Group, Follow)
+
+Обработка GET, POST, PATCH, PUT и DELETE запросов к базе данных проекта Yatube
+
+# Установка
+
+## 1)Склонировать репозиторий
 
 ```
 git clone https://github.com/Keshail/api_final_yatube
 ```
 
-```
-cd yatube_api
-```
-
-Cоздать и активировать виртуальное окружение:
+## 2)Создать и активировать виртуальное окружение для проекта
 
 ```
-python -m venv env
+python -m venv venv
 ```
 
-Активация
 ```
-source venv/Scripts/activate
-```
-
-Комманда обновления
-```
-python -m pip install --upgrade pip
+source venv/scripts/activate
 ```
 
-Установить зависимости из файла requirements.txt:
+## 3)Установить зависимости
 
 ```
-pip install -r requirements.txt
+python pip install -r requirements.txt
 ```
 
-Выполнить миграции:
+## 4)Сделать миграции
+```
+python manage.py makemigrations
+```
 
 ```
 python manage.py migrate
 ```
 
-Запустить проект:
+## 5)Запустить сервер
 
 ```
 python manage.py runserver
